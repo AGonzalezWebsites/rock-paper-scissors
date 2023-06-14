@@ -35,7 +35,51 @@ const fixCaps = (x) => {
     return `${xFirstLetter}${xAfterFirstLetter}`;
 };
 
+//create a function with both choices as parameters
+const pickWinner = (userChoice,compChoice) => {
+    //create variables for each choice string
+    let rock = "Rock";
+    let paper = "Paper";
+    let scissors = "Scissors";
+
+    // if else to compare each option and determine a winner
+    if (userChoice == rock) {
+        
+        if (compChoice == paper) {
+            alert(`Your ${userChoice} loses to the computers ${compChoice}!`);
+        } else if (compChoice == scissors) {
+            alert(`Your ${userChoice} beats the computers ${compChoice}!`);
+        }
+
+    } else if (userChoice == paper) {
+        
+        if (compChoice == scissors) {
+            alert(`Your ${userChoice} loses to the computers ${compChoice}!`);
+        } else if (compChoice == rock) {
+            alert(`Your ${userChoice} beats the computers ${compChoice}!`);
+        }
+
+    } else if (userChoice == scissors) {
+
+        if (compChoice == rock) {
+            alert(`Your ${userChoice} loses to the computers ${compChoice}!`);
+        } else if (compChoice == paper) {
+            alert(`Your ${userChoice} beats the computers ${compChoice}!`);
+        }
+
+    } else {
+        console.log(userChoice)
+        pickWinner(getPlayerChoice(), randomSelection());
+    }
+    //run the script again to play another round
+    pickWinner(getPlayerChoice(), randomSelection());
+}
+
 //compare choices
 //declare winner
 
-console.log(getPlayerChoice())
+    //randomSelection();
+    
+    pickWinner(getPlayerChoice(), randomSelection());
+
+
