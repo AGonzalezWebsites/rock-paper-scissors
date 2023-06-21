@@ -1,3 +1,13 @@
+const playerChoices = document.querySelectorAll('button');
+const resultBox = document.querySelector("#result")
+playerChoices.forEach((button) => {
+    console.log(button)
+    button.addEventListener('click', () => {
+        getPlayerChoice(button.textContent)
+    })
+}) 
+
+
 //Way to get computers choice
 const randomSelection = () => {
     let selection = "None";
@@ -15,25 +25,13 @@ const randomSelection = () => {
 }
 
 //Get players choice
-const getPlayerChoice = () => {
+
+const getPlayerChoice = (x) => {
     //get player choice
-    let x = prompt("Rock, Paper or Scissors");
-    return fixCaps(x);
-    
+    pickWinner(x, randomSelection());
 }
 
-const fixCaps = (x) => {
-    //lowercase string
-    xLowerCase = x.toLowerCase();
-    //get first letter
-    xFirstLetter = xLowerCase.slice(0, 1);
-    //upper case first letter
-    xFirstLetter = xFirstLetter.toUpperCase();
-    //get rest of string
-    xAfterFirstLetter = xLowerCase.substring(1);
-    //concatinate both strings
-    return `${xFirstLetter}${xAfterFirstLetter}`;
-};
+
 
 //create a function with both choices as parameters
 const pickWinner = (userChoice,compChoice) => {
@@ -41,30 +39,31 @@ const pickWinner = (userChoice,compChoice) => {
     let rock = "Rock";
     let paper = "Paper";
     let scissors = "Scissors";
-
-    // if else to compare each option and determine a winner
+    //clear results
+    //if both choices are the same
+    if (userChoice === compChoice) {
+        result.textContent = `You both chose ${userChoice}!`
+    }
+    //compare each option and determine a winner
     if (userChoice == rock) {
-        
         if (compChoice == paper) {
-            alert(`Your ${userChoice} loses to the computers ${compChoice}!`);
+            result.textContent = `Loser: Your ${userChoice} loses to the computers ${compChoice}!`;
         } else if (compChoice == scissors) {
-            alert(`Your ${userChoice} beats the computers ${compChoice}!`);
+            result.textContent = `Winner: Your ${userChoice} beats the computers ${compChoice}!`;
         }
 
     } else if (userChoice == paper) {
-        
         if (compChoice == scissors) {
-            alert(`Your ${userChoice} loses to the computers ${compChoice}!`);
+            result.textContent = `Loser: Your ${userChoice} loses to the computers ${compChoice}!`;
         } else if (compChoice == rock) {
-            alert(`Your ${userChoice} beats the computers ${compChoice}!`);
+            result.textContent = `Winner: Your ${userChoice} beats the computers ${compChoice}!`;
         }
 
     } else if (userChoice == scissors) {
-
         if (compChoice == rock) {
-            alert(`Your ${userChoice} loses to the computers ${compChoice}!`);
+            result.textContent = `Loser: Your ${userChoice} loses to the computers ${compChoice}!`;
         } else if (compChoice == paper) {
-            alert(`Your ${userChoice} beats the computers ${compChoice}!`);
+            result.textContent = `Winner: Your ${userChoice} beats the computers ${compChoice}!`;
         }
 
     } else {
@@ -72,14 +71,6 @@ const pickWinner = (userChoice,compChoice) => {
         pickWinner(getPlayerChoice(), randomSelection());
     }
     //run the script again to play another round
-    pickWinner(getPlayerChoice(), randomSelection());
 }
-
-//compare choices
-//declare winner
-
-    //randomSelection();
-    
-    pickWinner(getPlayerChoice(), randomSelection());
 
 
