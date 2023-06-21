@@ -1,7 +1,8 @@
 const playerChoices = document.querySelectorAll('button');
 const resultBox = document.querySelector("#result")
+const userScoreBox = document.querySelector("#userScore")
+const compScoreBox = document.querySelector("#compScore")
 playerChoices.forEach((button) => {
-    console.log(button)
     button.addEventListener('click', () => {
         getPlayerChoice(button.textContent)
     })
@@ -36,41 +37,82 @@ const getPlayerChoice = (x) => {
 //create a function with both choices as parameters
 const pickWinner = (userChoice,compChoice) => {
     //create variables for each choice string
-    let rock = "Rock";
-    let paper = "Paper";
-    let scissors = "Scissors";
+    let playerWon;
+    const rock = "Rock";
+    const paper = "Paper";
+    const scissors = "Scissors";
     //clear results
     //if both choices are the same
     if (userChoice === compChoice) {
-        result.textContent = `You both chose ${userChoice}!`
+        result.textContent = `We both chose ${userChoice}!`
+        return
     }
     //compare each option and determine a winner
     if (userChoice == rock) {
         if (compChoice == paper) {
-            result.textContent = `Loser: Your ${userChoice} loses to the computers ${compChoice}!`;
+            result.textContent = `Loser: Your ${userChoice} loses to my ${compChoice}!`;
+            playerWon = false;
         } else if (compChoice == scissors) {
-            result.textContent = `Winner: Your ${userChoice} beats the computers ${compChoice}!`;
+            result.textContent = `Winner: Your ${userChoice} beats my ${compChoice}!`;
+            playerWon = true;
         }
-
+        
     } else if (userChoice == paper) {
         if (compChoice == scissors) {
-            result.textContent = `Loser: Your ${userChoice} loses to the computers ${compChoice}!`;
+            result.textContent = `Loser: Your ${userChoice} loses to my ${compChoice}!`;
+            playerWon = false;
         } else if (compChoice == rock) {
-            result.textContent = `Winner: Your ${userChoice} beats the computers ${compChoice}!`;
+            result.textContent = `Winner: Your ${userChoice} beats my ${compChoice}!`;
+            playerWon = true;
         }
-
+        
     } else if (userChoice == scissors) {
         if (compChoice == rock) {
-            result.textContent = `Loser: Your ${userChoice} loses to the computers ${compChoice}!`;
+            result.textContent = `Loser: Your ${userChoice} loses to my ${compChoice}!`;
+            playerWon = false;
         } else if (compChoice == paper) {
-            result.textContent = `Winner: Your ${userChoice} beats the computers ${compChoice}!`;
+            result.textContent = `Winner: Your ${userChoice} beats my ${compChoice}!`;
+            playerWon = true;
         }
-
+        
     } else {
         console.log(userChoice)
         pickWinner(getPlayerChoice(), randomSelection());
     }
-    //run the script again to play another round
+    scoreTally(playerWon)
+}
+
+let playerScore = 0;
+let compScore = 0;
+const scoreTally = (playerWon) => {
+    if (playerWon) {
+        playerScore++
+        userScoreBox.textContent = playerScore;
+    }
+    else if (!playerWon) {
+        compScore++
+        compScoreBox.textContent = compScore;
+    }
+    else "Error"
+
+    checkForWinner(playerScore,compScore)
+
+}
+
+    let resetGame = false;
+    const checkForWinner = (playerScore,compScore) => {
+    if (playerScore >= 5) {
+        userScoreBox.textContent = playerScore;
+        resetGame = true;
+        alert("YOU WON")
+    } else if (compScore >= 5) {
+        alert("HAHAHA YOU IDIOT, I KNEW YOU'D LOSE. YOU KNOW WHY? CAUSE YOU'RE A USELESS HUMAN. DUMBASS")
+        resetGame = true;
+    }
+
+    if (resetGame) {
+        location.reload()
+    }
 }
 
 
